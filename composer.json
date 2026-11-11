@@ -1,5 +1,5 @@
 {
-    "name": "ro/ldap-auth-bundle",
+    "name": "ryan2486/ldap-auth-bundle",
     "description": "Configurable LDAP authentication bundle with an overridable Twig login form.",
     "type": "symfony-bundle",
     "license": "proprietary",

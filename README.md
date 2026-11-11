@@ -19,7 +19,7 @@ The bundle ships everything needed to secure an application with an LDAP directo
 ## Installation
 
 ```bash
-composer require ro/ldap-auth-bundle
+composer require ryan2486/ldap-auth-bundle
 ```
 
 Enable the bundle in `config/bundles.php`:
