@@ -1,0 +1,31 @@
+{% extends layout_template %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+    <main class="ldap-auth">
+        <section class="ldap-auth__card">
+            <h1 class="ldap-auth__title">Connexion</h1>
+
+            {% if error %}
+                <div class="ldap-auth__error" role="alert">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            <form class="ldap-auth__form" method="post" action="{{ path('ldap_auth_login') }}">
+                <div class="ldap-auth__field">
+                    <label for="username" class="ldap-auth__label">Identifiant</label>
+                    <input type="text" id="username" name="_username" value="{{ last_username }}" class="ldap-auth__input" autocomplete="username" required autofocus>
+                </div>
+
+                <div class="ldap-auth__field">
+                    <label for="password" class="ldap-auth__label">Mot de passe</label>
+                    <input type="password" id="password" name="_password" class="ldap-auth__input" autocomplete="current-password" required>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('ldap_auth') }}">
+
+                <button type="submit" class="ldap-auth__submit">Se connecter</button>
+            </form>
+        </section>
+    </main>
+{% endblock %}

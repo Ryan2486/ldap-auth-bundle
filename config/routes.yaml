@@ -1,0 +1,9 @@
+ldap_auth_login:
+    path: '%ldap_auth.login_path%'
+    controller: LdapAuthBundle\Controller\LoginController::login
+    methods: [GET, POST]
+
+ldap_auth_logout:
+    path: '%ldap_auth.logout_path%'
+    controller: LdapAuthBundle\Controller\LoginController::logout
+    methods: [GET]

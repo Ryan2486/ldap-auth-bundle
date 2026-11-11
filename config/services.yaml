@@ -1,0 +1,48 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    ldap_auth.ldap.adapter:
+        class: Symfony\Component\Ldap\Adapter\ExtLdap\Adapter
+        lazy: true
+        arguments:
+            - connection_string: '%ldap_auth.connection.dsn%'
+              encryption: '%ldap_auth.connection.encryption%'
+              options:
+                  protocol_version: '%ldap_auth.connection.protocol_version%'
+                  referrals: '%ldap_auth.connection.referrals%'
+                  network_timeout: '%ldap_auth.connection.network_timeout%'
+
+    ldap_auth.ldap:
+        class: Symfony\Component\Ldap\Ldap
+        arguments: ['@ldap_auth.ldap.adapter']
+
+    LdapAuthBundle\Service\LdapProviderFactory:
+        arguments:
+            $ldap: '@ldap_auth.ldap'
+            $mock: '%ldap_auth.mock%'
+            $baseDn: '%ldap_auth.base_dn%'
+
+    LdapAuthBundle\Service\LdapProviderInterface:
+        factory: ['@LdapAuthBundle\Service\LdapProviderFactory', 'create']
+
+    LdapAuthBundle\Security\DefaultLdapUserResolver: ~
+
+    LdapAuthBundle\Security\LdapUserProvider:
+        arguments:
+            $resolver: '@LdapAuthBundle\Security\LdapUserResolverInterface'
+
+    LdapAuthBundle\Security\LdapAuthenticator:
+        arguments:
+            $ldapProvider: '@LdapAuthBundle\Service\LdapProviderInterface'
+            $loginRoute: 'ldap_auth_login'
+            $defaultTargetPath: '%ldap_auth.default_target_path%'
+
+    LdapAuthBundle\Controller\LoginController:
+        arguments:
+            $loginTemplate: '%ldap_auth.login_template%'
+            $layoutTemplate: '%ldap_auth.layout_template%'
+        tags:
+            - 'controller.service_arguments'
