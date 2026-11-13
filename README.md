@@ -13,8 +13,8 @@ The bundle ships everything needed to secure an application with an LDAP directo
 
 ## Requirements
 
-- PHP >= 8.2 with the `ldap` extension
-- Symfony >= 7.4 (`config`, `dependency-injection`, `http-foundation`, `http-kernel`, `routing`, `security-bundle`, `twig-bundle`, `yaml`)
+- PHP >= 8.2 with the `ldap` extension (Symfony 8.x requires PHP >= 8.4)
+- Symfony 7.4 LTS or 8.x (`config`, `dependency-injection`, `http-foundation`, `http-kernel`, `routing`, `security-bundle`, `twig-bundle`, `yaml`)
 
 ## Installation
 
